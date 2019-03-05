@@ -1,18 +1,41 @@
 package arrays;
 
+import java.util.Random;
+
+import javax.swing.JOptionPane;
+
 import org.jointheleague.graphical.robot.Robot;
 
 public class _01_RobotRace {
 	//1. make a main method
 	public static void main(String[] args) {
 		int sideBySide = 0;
+		int advantage = 0;
+		Random rand = new Random();
+		boolean gameOver = false;
 		
 		
-		Robot[] rob = new Robot[5];
+		Robot[] rob = new Robot[2];
 		for (int i = 0; i < rob.length; i++) {
 			rob[i] = new Robot("mini");
-			rob[i].setX(400 + sideBySide);
-			rob[i].setY(550);
+			rob[i].setX(100 + sideBySide);
+			rob[i].setY(300 + advantage);
+			sideBySide = sideBySide + 35;
+			advantage = advantage - 2;
+			rob[i].setSpeed(10);
+		}
+		
+		while (!gameOver) {
+			for (int i = 0; i < rob.length; i++) {
+				rob[i].move(rand.nextInt(49)+1);
+				rob[i].turn(10);
+				if(rob[i].getY() < 50) {
+					gameOver = true;
+					JOptionPane.showMessageDialog(null, "Congratulations Robot " + (i+1) + "!");
+					break;
+				}
+			}
+			
 		}
 		
 	}
